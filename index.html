@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hope & Care Foundation</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #243247;
+      background: #f5f8fc;
+    }
+    header {
+      background: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { color: #0756a5; font-size: 21px; font-weight: bold; }
+    nav a {
+      color: #243247;
+      text-decoration: none;
+      margin: 0 8px;
+      font-size: 14px;
+    }
+    .hero {
+      background: #0756a5;
+      color: white;
+      text-align: center;
+      padding: 75px 20px;
+    }
+    .hero h1 { font-size: 38px; margin: 0 0 15px; }
+    .hero p { font-size: 18px; }
+    .button {
+      display: inline-block;
+      background: #f4bd42;
+      color: #173451;
+      padding: 14px 25px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    section { padding: 40px 20px; max-width: 1100px; margin: auto; }
+    h2 { color: #0756a5; text-align: center; }
+    .intro { text-align: center; line-height: 1.7; }
+    .campaigns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .campaign {
+      background: white;
+      padding: 22px;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px #00000010;
+    }
+    .campaign h3 { color: #0756a5; }
+    .progress {
+      height: 10px;
+      background: #e1e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress span {
+      display: block;
+      height: 100%;
+      background: #16a477;
+    }
+    .note { color: #667487; font-size: 13px; }
+    footer {
+      background: #12385f;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Hope & Care Foundation</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#mission">Our Mission</a>
+    <a href="#campaigns">Campaigns</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <h1>Every Donation Brings Hope.</h1>
+  <p>Together, we can bring care and support to communities in need.</p>
+  <a class="button" href="#campaigns">Explore Our Campaigns</a>
+</div>
+
+<section id="mission">
+  <h2>Our Mission and Impact</h2>
+  <p class="intro">
+    Hope & Care Foundation aims to support people and families
+    through community care, food assistance, mother and baby
+    support, and hospital care. Our commitment is to compassion,
+    transparency, and responsible fundraising.
+  </p>
+</section>
+
+<section id="campaigns">
+  <h2>Our Fundraising Campaigns</h2>
+  <p class="intro">Explore the causes we are working to support.</p>
+  <div class="campaigns">
+
+    <div class="campaign">
+      <h3>Our Lady of Guadalupe – Community Care</h3>
+      <p>Previously raised offline: MXN 1,722,500</p>
+      <p>Still needed: MXN 5,000,000</p>
+      <div class="progress"><span style="width:25.6%"></span></div>
+      <p class="note">Figures supplied for planning; verification pending.</p>
+    </div>
+
+    <div class="campaign">
+      <h3>Food Assistance</h3>
+      <p>Previously raised offline: MXN 532,800</p>
+      <p>Still needed: MXN 1,250,000</p>
+      <div class="progress"><span style="width:29.9%"></span></div>
+      <p class="note">Figures supplied for planning; verification pending.</p>
+    </div>
+
+    <div class="campaign">
+      <h3>Mother and Baby Support</h3>
+      <p>Previously raised offline: MXN 370,000</p>
+      <p>Still needed: MXN 1,500,000</p>
+      <div class="progress"><span style="width:19.8%"></span></div>
+      <p class="note">Figures supplied for planning; verification pending.</p>
+    </div>
+
+    <div class="campaign">
+      <h3>Hospital Care Assistance</h3>
+      <p>Previously raised offline: MXN 1,870,300</p>
+      <p>Still needed: MXN 4,500,000</p>
+      <div class="progress"><span style="width:29.4%"></span></div>
+      <p class="note">Figures supplied for planning; verification pending.</p>
+    </div>
+
+    <div class="campaign">
+      <h3>Community Support</h3>
+      <p>Previously raised offline: MXN 3,600,260</p>
+      <p>Still needed: MXN 6,200,000</p>
+      <div class="progress"><span style="width:36.7%"></span></div>
+      <p class="note">Figures supplied for planning; verification pending.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Transparency Matters</h2>
+  <p class="intro">
+    Donations will only be included in verified totals after
+    the funds have been received and checked.
+  </p>
+</section>
+
+<footer id="contact">
+  <p>Hope & Care Foundation</p>
+  <p>Every Donation Brings Hope.</p>
+  <p>Contact information coming soon.</p>
+</footer>
+
+</body>
+</html>

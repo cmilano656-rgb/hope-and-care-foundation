@@ -2,174 +2,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hope & Care Foundation</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #243247;
-      background: #f5f8fc;
-    }
-    header {
-      background: white;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .logo { color: #0756a5; font-size: 21px; font-weight: bold; }
-    nav a {
-      color: #243247;
-      text-decoration: none;
-      margin: 0 8px;
-      font-size: 14px;
-    }
-    .hero {
-      background: #0756a5;
-      color: white;
-      text-align: center;
-      padding: 75px 20px;
-    }
-    .hero h1 { font-size: 38px; margin: 0 0 15px; }
-    .hero p { font-size: 18px; }
-    .button {
-      display: inline-block;
-      background: #f4bd42;
-      color: #173451;
-      padding: 14px 25px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-    section { padding: 40px 20px; max-width: 1100px; margin: auto; }
-    h2 { color: #0756a5; text-align: center; }
-    .intro { text-align: center; line-height: 1.7; }
-    .campaigns {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-    .campaign {
-      background: white;
-      padding: 22px;
-      border-radius: 10px;
-      box-shadow: 0 3px 12px #00000010;
-    }
-    .campaign h3 { color: #0756a5; }
-    .progress {
-      height: 10px;
-      background: #e1e8f0;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .progress span {
-      display: block;
-      height: 100%;
-      background: #16a477;
-    }
-    .note { color: #667487; font-size: 13px; }
-    footer {
-      background: #12385f;
-      color: white;
-      text-align: center;
-      padding: 25px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hope & Care Foundation</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #102f55;
+  background: #f5f8fc;
+}
+
+.topbar {
+  background: #073866;
+  color: white;
+  padding: 13px 5%;
+  text-align: center;
+  font-size: 14px;
+}
+
+header {
+  background: white;
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  box-shadow: 0 2px 8px #00000012;
+}
+
+.logo {
+  color: #0756a5;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo small {
+  display: block;
+  font-size: 12px;
+  color: #60758c;
+  margin-top: 4px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #173858;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+nav a:hover { color: #0872c5; }
+
+.hero {
+  min-height: 390px;
+  padding: 65px 6%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #ffffff 5%, #ffffffed 38%, #ffffff12 85%),
+    url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1800")
+    center/cover;
+}
+
+.hero-content { max-width: 520px; }
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 6vw, 62px);
+  line-height: 1.05;
+  margin: 0 0 15px;
+  color: #073866;
+}
+
+.hero h2 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  margin: 0 0 15px;
+}
+
+.hero p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-block;
+  background: #0756a5;
+  color: white;
+  padding: 14px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.button:hover { background: #043b72; }
+
+section {
+  max-width: 1250px;
+  margin: auto;
+  padding: 45px 22px;
+}
+
+.section-title {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 32px;
+  color: #073866;
+  margin-bottom: 12px;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  color: #52677c;
+}
+
+.campaigns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.campaign {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px #102f5518;
+}
+
+.campaign img {
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  display: block;
+}
+
+.campaign-content { padding: 18px; }
+
+.campaign h3 {
+  color: #0756a5;
+  font-family: Georgia, serif;
+  font-size: 19px;
+  min-height: 44px;
+}
+
+.amount {
+  font-weight: bold;
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+.progress {
+  background: #e2e9f1;
+  height: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0 6px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: #0875bd;
+  border-radius: 20px;
+}
+
+.percentage {
+  text-align: right;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.5;
+}
+
+.campaign .button {
+  display: block;
+  text-align: center;
+  padding: 11px;
+}
+
+.transparency {
+  background: #e5efff;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.transparency p {
+  line-height: 1.7;
+  max-width: 800px;
+  margin: auto;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  text-align: center;
+}
+
+.feature {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+}
+
+.feature strong {
+  display: block;
+  color: #0756a5;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+footer {
+  background: #073866;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  line-height: 1.8;
+}
+
+footer a { color: white; }
+
+@media (max-width: 650px) {
+  header { justify-content: center; text-align: center; }
+  nav { justify-content: center; gap: 12px; }
+  .hero { padding: 45px 22px; background-position: center; }
+  .hero-content { background: #ffffffdf; padding: 18px; border-radius: 10px; }
+}
+</style>
 </head>
+
 <body>
 
+<div class="topbar">
+  ♥ Together we bring hope, care and love to those in need.
+</div>
+
 <header>
-  <div class="logo">Hope & Care Foundation</div>
+  <div class="logo">
+    ♥ Hope & Care Foundation
+    <small>Faith • Charity • Community</small>
+  </div>
+
   <nav>
     <a href="#home">Home</a>
     <a href="#mission">Our Mission</a>
     <a href="#campaigns">Campaigns</a>
+    <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <div class="hero" id="home">
-  <h1>Every Donation Brings Hope.</h1>
-  <p>Together, we can bring care and support to communities in need.</p>
-  <a class="button" href="#campaigns">Explore Our Campaigns</a>
+  <div class="hero-content">
+    <h1>Hope & Care Foundation</h1>
+    <h2>Together we can make a difference.</h2>
+    <p>
+      Providing help, support and compassion to families,
+      children and communities in need.
+    </p>
+    <a class="button" href="#campaigns">Explore Our Campaigns ♥</a>
+  </div>
 </div>
 
 <section id="mission">
-  <h2>Our Mission and Impact</h2>
-  <p class="intro">
-    Hope & Care Foundation aims to support people and families
-    through community care, food assistance, mother and baby
-    support, and hospital care. Our commitment is to compassion,
-    transparency, and responsible fundraising.
+  <h2 class="section-title">Our Mission</h2>
+  <p class="section-intro">
+    We aim to support people and families through community care,
+    food assistance, mother and baby support, hospital care and
+    community projects. Our commitment is to compassion,
+    accountability and responsible fundraising.
   </p>
+
+  <div class="features">
+    <div class="feature">
+      <strong>♥ Compassion</strong>
+      Care and kindness for people in need.
+    </div>
+    <div class="feature">
+      <strong>♧ Community</strong>
+      Working together to support families.
+    </div>
+    <div class="feature">
+      <strong>✚ Care</strong>
+      Supporting people through difficult times.
+    </div>
+  </div>
 </section>
 
 <section id="campaigns">
-  <h2>Our Fundraising Campaigns</h2>
-  <p class="intro">Explore the causes we are working to support.</p>
+  <h2 class="section-title">Our Campaigns</h2>
+  <p class="section-intro">
+    Discover the five fundraising causes we are preparing to support.
+    All amounts below are in Mexican pesos (MXN).
+  </p>
+
   <div class="campaigns">
 
     <div class="campaign">
-      <h3>Our Lady of Guadalupe – Community Care</h3>
-      <p>Previously raised offline: MXN 1,722,500</p>
-      <p>Still needed: MXN 5,000,000</p>
-      <div class="progress"><span style="width:25.6%"></span></div>
-      <p class="note">Figures supplied for planning; verification pending.</p>
+      <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=700"
+           alt="Religious community and place of worship">
+      <div class="campaign-content">
+        <h3>Our Lady of Guadalupe – Community Care</h3>
+        <p class="amount">Offline contributions reported: MXN 1,722,500</p>
+        <p>Still needed: MXN 5,000,000</p>
+        <div class="progress"><span style="width:25.6%"></span></div>
+        <div class="percentage">25.6%</div>
+        <p class="disclaimer">Reported offline amount; documentation and authorization should be confirmed.</p>
+        <a class="button" href="#donation-info">Donation information</a>
+      </div>
     </div>
 
     <div class="campaign">
-      <h3>Food Assistance</h3>
-      <p>Previously raised offline: MXN 532,800</p>
-      <p>Still needed: MXN 1,250,000</p>
-      <div class="progress"><span style="width:29.9%"></span></div>
-      <p class="note">Figures supplied for planning; verification pending.</p>
+      <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=700"
+           alt="Food assistance and community support">
+      <div class="campaign-content">
+        <h3>Food Assistance</h3>
+        <p class="amount">Offline contributions reported: MXN 532,800</p>
+        <p>Still needed: MXN 1,250,000</p>
+        <div class="progress"><span style="width:29.9%"></span></div>
+        <div class="percentage">29.9%</div>
+        <p class="disclaimer">Reported offline amount; documentation pending.</p>
+        <a class="button" href="#donation-info">Donation information</a>
+      </div>
     </div>
 
     <div class="campaign">
-      <h3>Mother and Baby Support</h3>
-      <p>Previously raised offline: MXN 370,000</p>
-      <p>Still needed: MXN 1,500,000</p>
-      <div class="progress"><span style="width:19.8%"></span></div>
-      <p class="note">Figures supplied for planning; verification pending.</p>
+      <img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=700"
+           alt="Mother caring for a baby">
+      <div class="campaign-content">
+        <h3>Mother and Baby Support</h3>
+        <p class="amount">Offline contributions reported: MXN 370,000</p>
+        <p>Still needed: MXN 1,500,000</p>
+        <div class="progress"><span style="width:19.8%"></span></div>
+        <div class="percentage">19.8%</div>
+        <p class="disclaimer">Reported offline amount; documentation pending.</p>
+        <a class="button" href="#donation-info">Donation information</a>
+      </div>
     </div>
 
     <div class="campaign">
-      <h3>Hospital Care Assistance</h3>
-      <p>Previously raised offline: MXN 1,870,300</p>
-      <p>Still needed: MXN 4,500,000</p>
-      <div class="progress"><span style="width:29.4%"></span></div>
-      <p class="note">Figures supplied for planning; verification pending.</p>
+      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700"
+           alt="Healthcare professional helping a patient">
+      <div class="campaign-content">
+        <h3>Hospital Care Assistance</h3>
+        <p class="amount">Offline contributions reported: MXN 1,870,300</p>
+        <p>Still needed: MXN 4,500,000</p>
+        <div class="progress"><span style="width:29.4%"></span></div>
+        <div class="percentage">29.4%</div>
+        <p class="disclaimer">Reported offline amount; documentation pending.</p>
+        <a class="button" href="#donation-info">Donation information</a>
+      </div>
     </div>
 
     <div class="campaign">
-      <h3>Community Support</h3>
-      <p>Previously raised offline: MXN 3,600,260</p>
-      <p>Still needed: MXN 6,200,000</p>
-      <div class="progress"><span style="width:36.7%"></span></div>
-      <p class="note">Figures supplied for planning; verification pending.</p>
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700"
+           alt="Children in a community">
+      <div class="campaign-content">
+        <h3>Community Support</h3>
+        <p class="amount">Offline contributions reported: MXN 3,600,260</p>
+        <p>Still needed: MXN 6,200,000</p>
+        <div class="progress"><span style="width:36.7%"></span></div>
+        <div class="percentage">36.7%</div>
+        <p class="disclaimer">Reported offline amount; documentation pending.</p>
+        <a class="button" href="#donation-info">Donation information</a>
+      </div>
     </div>
 
   </div>
 </section>
 
-<section>
-  <h2>Transparency Matters</h2>
-  <p class="intro">
-    Donations will only be included in verified totals after
-    the funds have been received and checked.
+<section class="transparency" id="about">
+  <h2 class="section-title">Transparency Matters</h2>
+  <p>
+    We believe supporters deserve clear information.
+    Contributions should only be counted as verified after
+    funds have been received and checked. Campaign figures
+    and organizational authorization must be documented
+    before public fundraising begins.
+  </p>
+</section>
+
+<section id="donation-info">
+  <h2 class="section-title">Support Our Mission</h2>
+  <p class="section-intro">
+    Donation submission and payment verification are not yet active.
+    Official payment instructions will be published after the
+    foundation's fundraising arrangements have been confirmed.
   </p>
 </section>
 
 <footer id="contact">
-  <p>Hope & Care Foundation</p>
+  <h2>Hope & Care Foundation</h2>
   <p>Every Donation Brings Hope.</p>
+  <p>Faith • Charity • Community</p>
   <p>Contact information coming soon.</p>
+  <small>Illustrative photographs are used on this preview website.</small>
 </footer>
 
 </body>

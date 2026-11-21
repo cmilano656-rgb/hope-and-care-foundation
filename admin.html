@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Hope & Care Foundation</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      color: #243247;
+    }
+
+    header {
+      background: #123c70;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h2 { margin: 0; font-size: 19px; }
+
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+      margin-bottom: 20px;
+    }
+
+    h1 { color: #123c70; }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: 1px solid #ccd5e0;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    button {
+      border: 0;
+      padding: 12px 17px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 4px;
+    }
+
+    .primary { background: #1764ad; color: white; }
+    .approve { background: #16834a; color: white; }
+    .reject { background: #c83b3b; color: white; }
+    .logout { background: white; color: #123c70; }
+
+    .hidden { display: none; }
+
+    .message {
+      padding: 12px;
+      border-radius: 7px;
+      background: #edf3fa;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .donation {
+      border: 1px solid #e0e6ee;
+      padding: 17px;
+      border-radius: 9px;
+      margin: 14px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .donation p { line-height: 1.5; }
+    .muted { color: #68788d; font-size: 13px; }
+
+    a { color: #1764ad; }
+
+    @media (max-width: 600px) {
+      header { align-items: flex-start; }
+      .panel { padding: 17px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Hope & Care Foundation</h2>
+  <button id="logoutButton" class="logout hidden">Sign Out</button>
+</header>
+
+<main>
+
+  <section id="loginPanel" class="panel">
+    <h1>Administrator Login</h1>
+    <p>Sign in with your authorized administrator account.</p>
+
+    <form id="loginForm">
+      <input
+        id="email"
+        type="email"
+        placeholder="Administrator email"
+        required
+      >
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Password"
+        required
+      >
+
+      <button class="primary" type="submit">Sign In</button>
+    </form>
+
+    <div id="loginMessage" class="message hidden"></div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="panel">
+      <h1>Administrator Dashboard</h1>
+      <p id="welcome"></p>
+      <p>Review donation submissions and verify payments.</p>
+      <button class="primary" id="refreshButton">Refresh Donations</button>
+      <div id="dashboardMessage" class="message">
+        Loading donations...
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Donation Submissions</h2>
+      <div id="donationsList"></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Your Supabase project connection
+  const SUPABASE_URL =
+    "https://ypmdhasvpppqwsmssumg.supabase.co";
+
+  // Replace this text with your Supabase Publishable key.
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_rZKaNTyTVvURGewSLNXXMA_wZUR2EWE";
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const loginPanel = document.getElementById("loginPanel");
+  const dashboard = document.getElementById("dashboard");
+  const loginMessage = document.getElementById("loginMessage");
+  const dashboardMessage = document.getElementById("dashboardMessage");
+  const donationsList = document.getElementById("donationsList");
+  const logoutButton = document.getElementById("logoutButton");
+
+  let currentUser = null;
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
+  }
+
+  function showLogin(message = "") {
+    loginPanel.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    logoutButton.classList.add("hidden");
+
+    loginMessage.textContent = message;
+    loginMessage.classList.toggle("hidden", !message);
+  }
+
+  async function checkAdministrator() {
+    const { data: userResult } = await db.auth.getUser();
+    const user = userResult?.user;
+
+    if (!user) {
+      showLogin();
+      return;
+    }
+
+    const { data, error } = await db
+      .from("admin_users")
+      .select("role")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error || !data || data.role !== "admin") {
+      await db.auth.signOut();
+      showLogin("This account does not have administrator access.");
+      return;
+    }
+
+    currentUser = user;
+    loginPanel.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    logoutButton.classList.remove("hidden");
+
+    document.getElementById("welcome").textContent =
+      "Signed in as " + user.email;
+
+    await loadDonations();
+  }
+
+  document.getElementById("loginForm").addEventListener(
+    "submit",
+    async function(event) {
+      event.preventDefault();
+
+      loginMessage.classList.remove("hidden");
+      loginMessage.textContent = "Signing in...";
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const { error } = await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        loginMessage.textContent = error.message;
+        return;
+      }
+
+      await checkAdministrator();
+    }
+  );
+
+  logoutButton.addEventListener("click", async function() {
+    await db.auth.signOut();
+    currentUser = null;
+    showLogin("You have signed out.");
+  });
+
+  document.getElementById("refreshButton").addEventListener(
+    "click",
+    loadDonations
+  );
+
+  async function loadDonations() {
+    dashboardMessage.textContent = "Loading donations...";
+    donationsList.innerHTML = "";
+
+    const { data, error } = await db
+      .from("donation_submissions")
+      .select("*");
+
+    if (error) {
+      dashboardMessage.textContent =
+        "Could not load donations: " + error.message;
+      return;
+    }
+
+    dashboardMessage.textContent =
+      "Total submissions: " + data.length;
+
+    if (!data.length) {
+      donationsList.innerHTML =
+        "<p>No donation submissions yet.</p>";
+      return;
+    }
+
+    for (const donation of data) {
+      const card = document.createElement("div");
+      card.className = "donation";
+
+      const fields = Object.entries(donation)
+        .filter(([key]) => key !== "receipt_path")
+        .map(([key, value]) => {
+          const displayValue =
+            typeof value === "object" && value !== null
+              ? JSON.stringify(value)
+              : value;
+
+          return "<p><strong>" + escapeHTML(key) +
+            ":</strong> " + escapeHTML(displayValue) + "</p>";
+        }).join("");
+
+      card.innerHTML =
+        fields +
+        '<div class="receiptArea"></div>' +
+        '<div class="actions"></div>';
+
+      donationsList.appendChild(card);
+
+      if (donation.receipt_path) {
+        const receiptArea = card.querySelector(".receiptArea");
+
+        const { data: receipt, error: receiptError } =
+          await db.storage
+            .from("donation-receipts")
+            .createSignedUrl(donation.receipt_path, 300);
+
+        if (!receiptError && receipt?.signedUrl) {
+          receiptArea.innerHTML =
+            '<p><a href="' + escapeHTML(receipt.signedUrl) +
+            '" target="_blank" rel="noopener">View payment receipt</a></p>';
+        } else {
+          receiptArea.textContent =
+            "Receipt could not be opened.";
+        }
+      }
+
+      const statusKey = [
+        "status",
+        "verification_status",
+        "payment_status"
+      ].find(key => Object.prototype.hasOwnProperty.call(donation, key));
+
+      const actions = card.querySelector(".actions");
+
+      if (statusKey && donation.id) {
+        const approveButton = document.createElement("button");
+        approveButton.className = "approve";
+        approveButton.textContent = "Mark Verified";
+
+        approveButton.addEventListener("click", () =>
+          updateDonation(donation.id, statusKey, "verified")
+        );
+
+        const rejectButton = document.createElement("button");
+        rejectButton.className = "reject";
+        rejectButton.textContent = "Reject";
+
+        rejectButton.addEventListener("click", () =>
+          updateDonation(donation.id, statusKey, "rejected")
+        );
+
+        actions.append(approveButton, rejectButton);
+      }
+    }
+  }
+
+  async function updateDonation(id, statusKey, newStatus) {
+    const confirmed = confirm(
+      "Are you sure you want to mark this submission as " +
+      newStatus + "?"
+    );
+
+    if (!confirmed) return;
+
+    const { error } = await db
+      .from("donation_submissions")
+      .update({ [statusKey]: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      alert("Update failed: " + error.message);
+      return;
+    }
+
+    alert("Submission updated.");
+    await loadDonations();
+  }
+
+  checkAdministrator();
+</script>
+
+</body>
+</html>

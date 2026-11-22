@@ -447,7 +447,7 @@ footer a { color: white; }
 </select>
 
   <label>Payment option</label>
-<select name="payment_method" style="width:100%;padding:13px;margin:10px 0 18px;">
+<select name="payment_method" id="payment_method" required onchange="if(this.value){window.open('payment.html?method='+this.value,'_blank');}">
   <option value="">Choose payment method</option>
   <option value="bank_transfer">Bank Transfer</option>
   <option value="bitcoin">Bitcoin (BTC)</option>

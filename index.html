@@ -433,7 +433,20 @@ footer a { color: white; }
 
         <label>Donation amount</label>
         <input type="number" style="width:100%;padding:13px;margin:10px 0 18px;">
+<label>Payment option</label>
+<select name="payment_method" style="width:100%;padding:13px;margin:10px 0 18px;">
+  <option value="">Choose payment method</option>
+  <option value="bank_transfer">Bank Transfer</option>
+  <option value="bitcoin">Bitcoin (BTC)</option>
+</select>
 
+<label>Transaction reference or Bitcoin transaction ID</label>
+<input name="transaction_reference"
+  style="width:100%;padding:13px;margin:10px 0 18px;">
+
+<label>Upload Payment Receipt (JPG, PNG or PDF)</label>
+<input type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf"
+  style="width:100%;padding:13px;margin:10px 0 18px;">
         <button class="button" type="button">Submit Donation</button>
       </fieldset>
     </form>

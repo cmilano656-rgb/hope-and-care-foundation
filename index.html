@@ -414,13 +414,14 @@ footer a { color: white; }
     <form>
       <fieldset disabled style="border:0;padding:0;">
         <label>Choose a campaign</label>
-        <select style="width:100%;padding:13px;margin:10px 0 18px;">
-          <option>Our Lady of Guadalupe – Community Care</option>
-          <option>Food Assistance</option>
-          <option>Mother and Baby Support</option>
-          <option>Hospital Care Assistance</option>
-          <option>Community Support</option>
-        </select>
+<select name="campaign_id" required style="width:100%;padding:13px;margin:10px 0 18px;">
+  <option value="">Choose a campaign</option>
+  <option value="ed333bc8-4660-4865-9318-eb542c1d2f9b">Our Lady of Guadalupe – Community Care</option>
+  <option value="af606b66-bd13-4754-9513-706819a397c7">Food Assistance</option>
+  <option value="e5f369a8-b6c5-470d-9923-09e651658072">Hospital Care Assistance</option>
+  <option value="dcf9caa9-ac85-4077-b665-f60a335d0f0b">Mother and Baby Support</option>
+  <option value="fbabf661-a618-4cc2-81a8-025c3c851835">Community Support</option>
+</select>
 
         <label>Your full name</label>
         <input style="width:100%;padding:13px;margin:10px 0 18px;">

@@ -5,30 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Payment Details | Hope & Care Foundation</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f6fc;
-  margin: 0;
-  padding: 25px;
-  color: #17345c;
-}
-.container {
-  max-width: 550px;
-  margin: 40px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 14px;
-  text-align: center;
-}
-h1 { color: #174b91; }
+body{font-family:Arial,sans-serif;background:#f2f6fc;margin:0;padding:25px;color:#17345c}
+.container{max-width:550px;margin:40px auto;background:white;padding:25px;border-radius:14px;text-align:center;box-shadow:0 4px 18px #0001}
+h1{color:#174b91}
+.detail{background:#eef4ff;padding:15px;margin:15px 0;border-radius:10px;overflow-wrap:anywhere}
+button{background:#174b91;color:white;border:0;padding:12px 20px;border-radius:7px}
+a{color:#174b91}
 </style>
 </head>
 <body>
 <div class="container">
 <h1>Hope & Care Foundation</h1>
-<h2>Payment Details</h2>
-<p>Select your payment method on the donation page to continue.</p>
-<a href="index.html">Return to Donation Page</a>
+<h2 id="payment-title">Payment Details</h2>
+
+<div id="bank-details" hidden>
+<h3>Bank Transfer</h3>
+<div class="detail">
+<p>Bank Name: YOUR BANK NAME</p>
+<p>Account Name: YOUR ACCOUNT NAME</p>
+<p>Account Number: YOUR ACCOUNT NUMBER</p>
 </div>
+
+
+<div id="bitcoin-details" hidden>
+<h3>Bitcoin Payment (BTC)</h3>
+<div class="detail">
+<p id="btc-address">bc1q9ts0mc7u5m9az30k5cpjpzzn54z87n7kl2jhry</p>
+<button onclick="navigator.clipboard.writeText(document.getElementById('btc-address').textContent)">Copy Bitcoin Address</button>
+</div>
+<img src="bitcoin-qr.png" alt="Bitcoin QR Code" width="180">
+</div>
+
+<p id="error-message" hidden>Please return and choose a payment method.</p>
+<p><a href="index.html">Return to Donation Page</a></p>
+</div>
+
+<script>
+const method = new URLSearchParams(window.location.search).get("method");
+
+if(method === "bank_transfer"){
+ document.getElementById("bank-details").hidden = false;
+ document.getElementById("payment-title").textContent = "Bank Payment";
+}else if(method === "bitcoin"){
+ document.getElementById("bitcoin-details").hidden = false;
+ document.getElementById("payment-title").textContent = "Bitcoin Payment";
+}else{
+ document.getElementById("error-message").hidden = false;
+}
+</script>
 </body>
 </html>
